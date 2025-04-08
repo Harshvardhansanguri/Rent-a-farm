@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Listing - Rent A Farm</title>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js"></script>
+</head>
+<body>
+    <h2>Add Land Listing</h2>
+    <form id="listingForm">
+        <label for="title">Title:</label>
+        <input type="text" id="title" required><br><br>
+
+        <label for="description">Description:</label>
+        <textarea id="description" required></textarea><br><br>
+
+        <label for="price">Price (per acre):</label>
+        <input type="number" id="price" required><br><br>
+
+        <label for="image">Upload Image:</label>
+        <input type="file" id="image" accept="image/*" required><br><br>
+
+        <button type="submit">Submit Listing</button>
+    </form>
+
+    <script type="module" src="addlisting.js"></script>
+</body>
+</html>
