@@ -5,6 +5,24 @@ import { app } from "./firebase-config.js";
 document.addEventListener("DOMContentLoaded", function () {
     const auth = getAuth(app);
     const loginForm = document.getElementById("loginForm");
+    const togglePassword = document.getElementById("togglePassword");
+    const passwordInput = document.getElementById("password");
+
+    // Toggle password visibility and switch eye icon
+    togglePassword.addEventListener("click", function () {
+        const type = passwordInput.type === "password" ? "text" : "password";
+        passwordInput.type = type;
+
+        // Toggle the eye icon
+        const icon = togglePassword.querySelector("i");
+        if (passwordInput.type === "password") {
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+        } else {
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+        }
+    });
 
     if (loginForm) {
         loginForm.addEventListener("submit", function (event) {

@@ -43,8 +43,9 @@ document.addEventListener("DOMContentLoaded", () => {
         logoutButton.addEventListener("click", () => {
             signOut(auth).then(() => {
                 alert("Logged out successfully!");
-                window.location.href = "login.html";
+                window.location.href = "index.html";  // Redirect to the landing page
             }).catch((error) => console.error("Logout Error:", error));
+            
         });
     }
 
