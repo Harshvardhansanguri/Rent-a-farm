@@ -21,64 +21,115 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const storage = getStorage(app);
 
-// Check user authentication and show/hide land listing form
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        document.getElementById("user-email").textContent = `Logged in as: ${user.email}`;
-        document.getElementById("landListingForm").style.display = "block"; // ✅ Show form when logged in
-    } else {
-        window.location.href = "login.html"; // Redirect if not logged in
-    }
-});
+document.addEventListener("DOMContentLoaded", () => {
+    const userEmail = document.getElementById("user-email");
+    const listingForm = document.getElementById("listingForm");
+    const alertBox = document.getElementById("alert");
+    const logoutButton = document.getElementById("logout");
+    const landFormContainer = document.getElementById("landListingForm");
 
-// Logout functionality
-document.getElementById("logout").addEventListener("click", () => {
-    signOut(auth).then(() => {
-        alert("Logged out successfully!");
-        window.location.href = "login.html";
-    }).catch((error) => console.error("Logout Error:", error));
-});
+    // Check user authentication
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            if (userEmail) userEmail.textContent = `Logged in as: ${user.email}`;
+            if (landFormContainer) landFormContainer.style.display = "block";
+        } else {
+            window.location.href = "login.html";
+        }
+    });
 
-// Handle land listing submission
-document.getElementById("listingForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    
-    const user = auth.currentUser;
-    if (!user) {
-        alert("You must be logged in to list land.");
-        return;
-    }
-
-    const title = document.getElementById("landTitle").value;
-    const location = document.getElementById("landLocation").value;
-    const size = document.getElementById("landSize").value;
-    const imageFile = document.getElementById("landImage").files[0];
-
-    if (!title || !location || !size || !imageFile) {
-        alert("All fields are required!");
-        return;
-    }
-
-    try {
-        // Upload image to Firebase Storage
-        const storageRef = ref(storage, `landImages/${user.uid}/${imageFile.name}`);
-        await uploadBytes(storageRef, imageFile);
-        const imageUrl = await getDownloadURL(storageRef);
-
-        // Save listing to Firestore
-        await addDoc(collection(db, "landListings"), {
-            userId: user.uid,
-            title: title,
-            location: location,
-            size: size,
-            imageUrl: imageUrl,
-            timestamp: new Date()
+    // Logout button
+    if (logoutButton) {
+        logoutButton.addEventListener("click", () => {
+            signOut(auth).then(() => {
+                alert("Logged out successfully!");
+                window.location.href = "login.html";
+            }).catch((error) => console.error("Logout Error:", error));
         });
-
-        alert("Land listed successfully!");
-        document.getElementById("listingForm").reset(); // Clear form
-    } catch (error) {
-        console.error("Error listing land:", error);
-        alert("Failed to list land. Try again!");
     }
+
+    // Handle land listing submission
+    if (listingForm) {
+        listingForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            
+            const user = auth.currentUser;
+            if (!user) {
+                alert("You must be logged in to list land.");
+                return;
+            }
+
+            const title = document.getElementById("landTitle").value;
+            const location = document.getElementById("landLocation").value;
+            const size = document.getElementById("landSize").value;
+            const imageFile = document.getElementById("landImage").files[0];
+
+            if (!title || !location || !size || !imageFile) {
+                alert("All fields are required!");
+                return;
+            }
+
+            try {
+                const storageRef = ref(storage, `landImages/${user.uid}/${imageFile.name}`);
+                await uploadBytes(storageRef, imageFile);
+                const imageUrl = await getDownloadURL(storageRef);
+
+                // Adding the land listing to Firestore
+                await addDoc(collection(db, "landListings"), {
+                    userId: user.uid,
+                    title: title,
+                    location: location,
+                    size: size,
+                    imageUrl: imageUrl,
+                    timestamp: new Date()
+                });
+
+                // Show success alert
+                if (alertBox) {
+                    alertBox.style.display = "block";
+                    alertBox.style.backgroundColor = "#d4edda"; // green
+                    alertBox.textContent = "Land listed successfully!";
+                }
+
+                listingForm.reset(); // Clear form
+            } catch (error) {
+                console.error("Error listing land:", error);
+                // Show error alert
+                if (alertBox) {
+                    alertBox.style.display = "block";
+                    alertBox.style.backgroundColor = "#f8d7da"; // red
+                    alertBox.textContent = "Failed to list land. Try again!";
+                }
+            }
+        });
+    }
+
+    // Display land listings
+    const displayLandListings = async () => {
+        const listingsContainer = document.getElementById("listingsContainer");
+
+        // Get all land listings from Firestore
+        const landListingsQuery = collection(db, "landListings");
+        const querySnapshot = await getDocs(landListingsQuery);
+
+        // Loop through each listing and create HTML elements
+        querySnapshot.forEach((doc) => {
+            const listing = doc.data();
+            const card = document.createElement("div");
+            card.classList.add("card");
+            card.innerHTML = `
+                <img src="${listing.imageUrl}" alt="${listing.title}">
+                <div class="p-4">
+                    <h4>${listing.title}</h4>
+                    <p>${listing.location}</p>
+                    <p>Size: ${listing.size} sqm</p>
+                </div>
+            `;
+
+            listingsContainer.appendChild(card);
+        });
+    };
+
+    displayLandListings(); // Call function to display listings
+
 });

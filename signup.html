@@ -1,21 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up - Rent A Farm</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up - Rent A Farm</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="signup-container">
-        <h2>Sign Up</h2>
-        <form>
-            <input type="text" placeholder="Full Name" required>
-            <input type="email" placeholder="Email" required>
-            <input type="password" placeholder="Password" required>
-            <button type="submit" class="signup-btn">Sign Up</button>
-        </form>
-        <p>Already have an account? <a href="login.html">Login</a></p>
+<body class="auth-body">
+  <div class="auth-container">
+    <h2>Create an Account</h2>
+    <form class="auth-form" id="signup-form">
+      <div class="form-group">
+        <label for="fullname">Full Name</label>
+        <input type="text" id="fullname" placeholder="Full Name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Email" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Password" required>
+      </div>
+      <button type="submit" class="btn">Sign Up</button>
+    </form>
+    <div class="auth-link">
+      Already have an account? <a href="login.html">Login here</a>
     </div>
+  </div>
+
+  <script type="module" src="signup.js"></script>
 </body>
 </html>

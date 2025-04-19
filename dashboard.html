@@ -1,39 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | Rent A Farm</title>
-    <link rel="stylesheet" href="style.css">
-</head>d
-<body>
-    <div class="container">
-        <h2>Welcome to Your Dashboard</h2>
-        <p id="user-email"></p>
-        <button id="logout">Logout</button>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard | Rent A Farm</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="dashboard">
 
-        <!-- ✅ Land Listing Form (Initially Hidden) -->
-        <div id="landListingForm" style="display: none;">
-            <h2>List Your Land</h2>
-            <form id="listingForm">
-                <label for="landTitle">Title:</label>
-                <input type="text" id="landTitle" required>
-
-                <label for="landLocation">Location:</label>
-                <input type="text" id="landLocation" required>
-
-                <label for="landSize">Size (in acres):</label>
-                <input type="number" id="landSize" required>
-
-                <label for="landImage">Upload Image:</label>
-                <input type="file" id="landImage" accept="image/*" required>
-
-                <button type="submit">Submit Listing</button>
-            </form>
-        </div>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div>
+      <h1 class="sidebar-header">Rent A Farm</h1>
+      <p class="text-sm mb-1">Logged in as:</p>
+      <p class="text-sm font-medium mb-4" id="user-email">Loading...</p>
     </div>
+    <button id="logout">Logout</button>
+  </aside>
 
-    <script type="module" src="firebase-config.js"></script>
-    <script type="module" src="dashboard.js"></script>
+  <!-- Main Content -->
+  <main class="main-content">
+    <section id="landListingForm">
+      <h2 class="text-2xl font-bold mb-4">List Your Land</h2>
+      <form id="listingForm" class="grid md:grid-cols-4 gap-4 items-end">
+        <div>
+          <label for="landTitle">Title:</label>
+          <input type="text" id="landTitle" />
+        </div>
+        <div>
+          <label for="landLocation">Location:</label>
+          <input type="text" id="landLocation" />
+        </div>
+        <div>
+          <label for="landSize">Size (in acres):</label>
+          <input type="number" id="landSize" />
+        </div>
+        <div>
+          <label for="landImage">Upload Image:</label>
+          <input type="file" id="landImage" />
+        </div>
+        <div class="col-span-full">
+          <button type="submit">Submit Listing</button>
+        </div>
+      </form>
+    </section>
+
+    <input type="text" placeholder="Search by location..." id="searchInput" class="my-6 p-2 border rounded w-full max-w-md" />
+
+    <h3 class="text-xl font-semibold mb-4">Your Listings</h3>
+    <div id="listingsContainer" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <!-- Dummy Listing -->
+      <div class="card">
+        <img src="https://source.unsplash.com/featured/?farm" alt="Land" />
+        <div class="p-4">
+          <h4 class="font-bold text-lg mb-1">Green Field</h4>
+          <p class="text-sm text-gray-700">Location: Punjab</p>
+          <p class="text-sm text-gray-700">Size: 2 acres</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://source.unsplash.com/featured/?agriculture" alt="Land" />
+        <div class="p-4">
+          <h4 class="font-bold text-lg mb-1">Sunny Land</h4>
+          <p class="text-sm text-gray-700">Location: Tamil Nadu</p>
+          <p class="text-sm text-gray-700">Size: 3 acres</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://source.unsplash.com/featured/?crops" alt="Land" />
+        <div class="p-4">
+          <h4 class="font-bold text-lg mb-1">Crop Haven</h4>
+          <p class="text-sm text-gray-700">Location: Karnataka</p>
+          <p class="text-sm text-gray-700">Size: 5 acres</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Firebase and App Script -->
+  <script type="module" src="dashboard.js"></script>
 </body>
 </html>
