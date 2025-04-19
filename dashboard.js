@@ -1,7 +1,7 @@
 // Import Firebase services
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
 // Firebase Configuration
@@ -22,18 +22,24 @@ const db = getFirestore(app);
 const storage = getStorage(app);
 
 document.addEventListener("DOMContentLoaded", () => {
-    const userEmail = document.getElementById("user-email");
     const listingForm = document.getElementById("listingForm");
     const alertBox = document.getElementById("alert");
     const logoutButton = document.getElementById("logout");
     const landFormContainer = document.getElementById("landListingForm");
+    const userEmailDisplay = document.getElementById("user-email");
 
     // Check user authentication
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            if (userEmail) userEmail.textContent = `Logged in as: ${user.email}`;
-            if (landFormContainer) landFormContainer.style.display = "block";
+            // Display user email in the sidebar
+            if (userEmailDisplay) {
+                userEmailDisplay.textContent = `Logged in as: ${user.email}`;
+            }
+            if (landFormContainer) {
+                landFormContainer.style.display = "block";
+            }
         } else {
+            // Redirect to login if not authenticated
             window.location.href = "login.html";
         }
     });
@@ -45,7 +51,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert("Logged out successfully!");
                 window.location.href = "index.html";  // Redirect to the landing page
             }).catch((error) => console.error("Logout Error:", error));
-            
         });
     }
 
@@ -112,25 +117,6 @@ document.addEventListener("DOMContentLoaded", () => {
         // Get all land listings from Firestore
         const landListingsQuery = collection(db, "landListings");
         const querySnapshot = await getDocs(landListingsQuery);
-
-        // Loop through each listing and create HTML elements
-        querySnapshot.forEach((doc) => {
-            const listing = doc.data();
-            const card = document.createElement("div");
-            card.classList.add("card");
-            card.innerHTML = `
-                <img src="${listing.imageUrl}" alt="${listing.title}">
-                <div class="p-4">
-                    <h4>${listing.title}</h4>
-                    <p>${listing.location}</p>
-                    <p>Size: ${listing.size} sqm</p>
-                </div>
-            `;
-
-            listingsContainer.appendChild(card);
-        });
+        // Display the listings here...
     };
-
-    displayLandListings(); // Call function to display listings
-
 });
