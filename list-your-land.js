@@ -1,8 +1,9 @@
-import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
-// Firebase configuration
+// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyCyKOLfK_LMIQUYbJ1pGIbI-wV9yCqHA3I",
   authDomain: "rentafarm-2e5c2.firebaseapp.com",
@@ -13,9 +14,21 @@ const firebaseConfig = {
   measurementId: "G-717F1GY0NN"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 const db = getFirestore(app);
 const storage = getStorage(app);
+
+// Display logged-in user's email
+onAuthStateChanged(auth, (user) => {
+  const emailDisplay = document.getElementById("user-email");
+  if (user && emailDisplay) {
+    emailDisplay.textContent = `Logged in: ${user.email}`;
+  } else if (emailDisplay) {
+    emailDisplay.textContent = "Not logged in";
+  }
+});
 
 document.getElementById("listingForm").addEventListener("submit", async (event) => {
   event.preventDefault();
