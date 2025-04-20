@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>List Your Land | Rent A Farm</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="dashboard">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div>
+      <h1 class="sidebar-header">Rent A Farm</h1>
+      <p class="text-sm" id="user-email">Loading...</p>
+    </div>
+    <nav class="mt-6">
+      <ul class="space-y-3">
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="list-your-land.html">List Your Land</a></li>
+      </ul>
+    </nav>
+    <button id="logout">Logout</button>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content flex justify-center">
+    <section class="w-full max-w-4xl p-8 bg-white shadow-lg rounded-lg mt-10">
+      <h2 class="text-3xl font-bold mb-6 text-center">List Your Land</h2>
+
+      <form id="listingForm" class="grid md:grid-cols-2 gap-6">
+        <div>
+          <label for="title" class="block font-semibold mb-1">Title:</label>
+          <input type="text" id="title" class="w-full border border-gray-300 rounded px-3 py-2" required>
+        </div>
+
+        <div>
+          <label for="location" class="block font-semibold mb-1">Location:</label>
+          <input type="text" id="location" class="w-full border border-gray-300 rounded px-3 py-2" required>
+        </div>
+
+        <div>
+          <label for="size" class="block font-semibold mb-1">Size (in acres):</label>
+          <input type="number" id="size" class="w-full border border-gray-300 rounded px-3 py-2" required>
+        </div>
+
+        <div>
+          <label for="price" class="block font-semibold mb-1">Price (per acre):</label>
+          <input type="number" id="price" class="w-full border border-gray-300 rounded px-3 py-2" required>
+        </div>
+
+        <div class="md:col-span-2">
+          <label for="description" class="block font-semibold mb-1">Description:</label>
+          <textarea id="description" rows="4" class="w-full border border-gray-300 rounded px-3 py-2" required></textarea>
+        </div>
+
+        <div class="md:col-span-2">
+          <label for="image" class="block font-semibold mb-1">Upload Image:</label>
+          <input type="file" id="image" accept="image/*" class="w-full" required>
+        </div>
+
+        <div class="md:col-span-2 text-center">
+          <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition duration-300">
+            Submit Listing
+          </button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script type="module" src="list-your-land.js"></script>
+</body>
+</html>

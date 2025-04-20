@@ -9,42 +9,25 @@
 </head>
 <body class="dashboard">
 
-  <!-- Sidebar -->
   <aside class="sidebar">
     <div>
       <h1 class="sidebar-header">Rent A Farm</h1>
-      <!-- This is where we want to show the user email -->
       <p class="text-sm" id="user-email">Loading...</p>
     </div>
+    <nav class="mt-6">
+      <ul class="space-y-3">
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="list-your-land.html">List Your Land</a></li>
+        <!-- Add more options as needed -->
+      </ul>
+    </nav>
     <button id="logout">Logout</button>
   </aside>
+  
 
   <!-- Main Content -->
   <main class="main-content">
-    <section id="landListingForm">
-      <h2 class="text-2xl font-bold mb-4">List Your Land</h2>
-      <form id="listingForm" class="grid md:grid-cols-4 gap-4 items-end">
-        <div>
-          <label for="landTitle">Title:</label>
-          <input type="text" id="landTitle" />
-        </div>
-        <div>
-          <label for="landLocation">Location:</label>
-          <input type="text" id="landLocation" />
-        </div>
-        <div>
-          <label for="landSize">Size (in acres):</label>
-          <input type="number" id="landSize" />
-        </div>
-        <div>
-          <label for="landImage">Upload Image:</label>
-          <input type="file" id="landImage" />
-        </div>
-        <div class="col-span-full">
-          <button type="submit">Submit Listing</button>
-        </div>
-      </form>
-    </section>
+    
 
     <input type="text" placeholder="Search by location..." id="searchInput" class="my-6 p-2 border rounded w-full max-w-md" />
 
