@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Soil Types | Rent A Farm</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f5f7fa;
+    }
+    .soil-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    .info-section {
+      scroll-margin-top: 100px;
+    }
+
+    /* Modified CSS for the Soil Info Button */
+    .sidebar a {
+      transition: color 0.3s ease, background-color 0.3s ease;
+    }
+    .sidebar a.text-green-700 {
+      color: black; /* Default color is black */
+    }
+    .sidebar a.text-green-700:hover {
+      color: #10B981; /* Green color when hovered */
+    }
+  </style>
+</head>
+<body class="flex">
+
+  <!-- Sidebar -->
+  <aside class="sidebar w-64 h-screen bg-white shadow-lg fixed top-0 left-0 z-10 p-6">
+    <h1 class="text-2xl font-bold text-green-700 mb-6">Rent A Farm</h1>
+    <nav>
+      <ul class="space-y-4">
+        <li><a href="dashboard.html" class="text-gray-700 hover:text-green-700 font-semibold">Dashboard</a></li>
+        <li><a href="list-your-land.html" class="text-gray-700 hover:text-green-700 font-semibold">List Your Land</a></li>
+        <li><a href="weather.html" class="text-gray-700 hover:text-green-700 font-semibold">Weather</a></li>
+        <li><a href="soil.html" class="text-gray-700 hover:text-green-700 font-semibold">Soil Info</a></li>
+      </ul>
+    </nav>
+    <button id="logout" class="logout-button">Logout</button>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="ml-64 p-10 w-full">
+    <h2 class="text-3xl font-bold text-gray-800 mb-8">Soil Types in India</h2>
+
+    <!-- Soil Cards -->
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-6 mb-12">
+      <a href="#alluvial" class="soil-card bg-white rounded-lg shadow-md p-4 transition-all duration-300 hover:shadow-xl">
+        <img src="images/alluvial soil.jpg" alt="Alluvial Soil" class="w-full h-40 object-cover rounded-md mb-3" />
+        <h3 class="text-lg font-semibold text-center text-gray-700">Alluvial Soil</h3>
+      </a>
+      <a href="#black" class="soil-card bg-white rounded-lg shadow-md p-4 transition-all duration-300 hover:shadow-xl">
+        <img src="images/black soil.jpg" alt="Black Soil" class="w-full h-40 object-cover rounded-md mb-3" />
+        <h3 class="text-lg font-semibold text-center text-gray-700">Black Soil</h3>
+      </a>
+      <a href="#red" class="soil-card bg-white rounded-lg shadow-md p-4 transition-all duration-300 hover:shadow-xl">
+        <img src="images/red soil.jpg" alt="Red Soil" class="w-full h-40 object-cover rounded-md mb-3" />
+        <h3 class="text-lg font-semibold text-center text-gray-700">Red Soil</h3>
+      </a>
+      <a href="#laterite" class="soil-card bg-white rounded-lg shadow-md p-4 transition-all duration-300 hover:shadow-xl">
+        <img src="images/laterite soil.jpg" alt="Laterite Soil" class="w-full h-40 object-cover rounded-md mb-3" />
+        <h3 class="text-lg font-semibold text-center text-gray-700">Laterite Soil</h3>
+      </a>
+      <a href="#mountain" class="soil-card bg-white rounded-lg shadow-md p-4 transition-all duration-300 hover:shadow-xl">
+        <img src="images/mountain soil.jpg" alt="Mountain Soil" class="w-full h-40 object-cover rounded-md mb-3" />
+        <h3 class="text-lg font-semibold text-center text-gray-700">Mountain Soil</h3>
+      </a>
+    </div>
+
+    <!-- Info Sections -->
+    <section id="alluvial" class="info-section flex gap-6 mb-12">
+      <img src="images/alluvial soil.jpg" class="w-64 h-48 object-cover rounded-md shadow-md" alt="Alluvial Soil">
+      <div>
+        <h3 class="text-2xl font-bold text-gray-800 mb-2">Alluvial Soil</h3>
+        <p><strong>Found in:</strong> Indo-Gangetic plains (Punjab, Haryana, Uttar Pradesh, Bihar, West Bengal, Assam)</p>
+        <p><strong>Regions:</strong> Northern plains, River basins</p>
+        <p><strong>Suitable Crops:</strong> Rice, wheat, sugarcane, pulses</p>
+        <p><strong>Highest MSP Crop:</strong> Paddy (MSP ₹2,300/qtl approx.)</p>
+        <p><strong>Properties:</strong> Fertile, rich in potash, needs proper nitrogen supplementation.</p>
+      </div>
+    </section>
+
+    <section id="black" class="info-section flex gap-6 mb-12">
+      <img src="images/black soil.jpg" class="w-64 h-48 object-cover rounded-md shadow-md" alt="Black Soil">
+      <div>
+        <h3 class="text-2xl font-bold text-gray-800 mb-2">Black Soil</h3>
+        <p><strong>Found in:</strong> Maharashtra, Madhya Pradesh, Gujarat, Andhra Pradesh</p>
+        <p><strong>Regions:</strong> Deccan plateau</p>
+        <p><strong>Suitable Crops:</strong> Cotton, jowar, sunflower</p>
+        <p><strong>Highest MSP Crop:</strong> Cotton (MSP ₹6,620/qtl approx.)</p>
+        <p><strong>Properties:</strong> Moisture-retentive, rich in iron, magnesium, calcium.</p>
+      </div>
+    </section>
+
+    <section id="red" class="info-section flex gap-6 mb-12">
+      <img src="images/red soil.jpg" class="w-64 h-48 object-cover rounded-md shadow-md" alt="Red Soil">
+      <div>
+        <h3 class="text-2xl font-bold text-gray-800 mb-2">Red Soil</h3>
+        <p><strong>Found in:</strong> Tamil Nadu, Karnataka, Odisha, Jharkhand</p>
+        <p><strong>Regions:</strong> Eastern and southern peninsular regions</p>
+        <p><strong>Suitable Crops:</strong> Millets, groundnut, pulses</p>
+        <p><strong>Highest MSP Crop:</strong> Groundnut (MSP ₹6,377/qtl approx.)</p>
+        <p><strong>Properties:</strong> Poor in nitrogen, needs fertilization, good drainage.</p>
+      </div>
+    </section>
+
+    <section id="laterite" class="info-section flex gap-6 mb-12">
+      <img src="images/laterite soil.jpg" class="w-64 h-48 object-cover rounded-md shadow-md" alt="Laterite Soil">
+      <div>
+        <h3 class="text-2xl font-bold text-gray-800 mb-2">Laterite Soil</h3>
+        <p><strong>Found in:</strong> Kerala, Karnataka, Western Ghats, Odisha</p>
+        <p><strong>Regions:</strong> Hilly and high rainfall areas</p>
+        <p><strong>Suitable Crops:</strong> Tea, coffee, cashew</p>
+        <p><strong>Highest MSP Crop:</strong> Cashew (Market dependent)</p>
+        <p><strong>Properties:</strong> Acidic, low fertility, porous and loamy.</p>
+      </div>
+    </section>
+
+    <section id="mountain" class="info-section flex gap-6 mb-12">
+      <img src="images/mountain soil.jpg" class="w-64 h-48 object-cover rounded-md shadow-md" alt="Mountain Soil">
+      <div>
+        <h3 class="text-2xl font-bold text-gray-800 mb-2">Mountain Soil</h3>
+        <p><strong>Found in:</strong> Himachal Pradesh, Uttarakhand, Sikkim</p>
+        <p><strong>Regions:</strong> Himalayan foothills</p>
+        <p><strong>Suitable Crops:</strong> Tea, fruits, spices</p>
+        <p><strong>Highest MSP Crop:</strong> Apple (varies by market)</p>
+        <p><strong>Properties:</strong> Fertile in valleys, rich in organic matter.</p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
