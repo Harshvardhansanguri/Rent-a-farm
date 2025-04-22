@@ -119,4 +119,18 @@ document.addEventListener("DOMContentLoaded", () => {
         const querySnapshot = await getDocs(landListingsQuery);
         // Display the listings here...
     };
+
+    // Sidebar toggle functionality
+    const toggleSidebarBtn = document.getElementById("toggleSidebar");
+    const sidebar = document.querySelector(".sidebar");
+    const mainContent = document.querySelector(".main-content"); // Optional if you want to shift content
+
+    if (toggleSidebarBtn && sidebar) {
+        toggleSidebarBtn.addEventListener("click", () => {
+            sidebar.classList.toggle("collapsed");
+            if (mainContent) {
+                mainContent.classList.toggle("collapsed");
+            }
+        });
+    }
 });

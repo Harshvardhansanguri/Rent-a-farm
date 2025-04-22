@@ -8,57 +8,64 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="dashboard">
+  <!-- Sidebar -->
+<aside class="sidebar">
+  <div>
+    <h1 class="sidebar-header">Rent A Farm</h1>
+    <button id="toggleSidebar">☰</button> <!-- Toggle Button -->
+    <p class="text-sm" id="user-email">Loading...</p>
+  </div>
+  <nav class="mt-6">
+    <ul class="space-y-3">
+      <li><a href="dashboard.html" class="sidebar-link"><span>Dashboard</span></a></li>
+      <li><a href="list-your-land.html" class="sidebar-link"><span>List Your Land</span></a></li>
+      <li><a href="weather-forecast.html" class="sidebar-link"><span>Weather Forecast</span></a></li>
+    </ul>
+  </nav>
+  <button id="logout" class="logout-button">Logout</button>
+</aside>
 
-  <aside class="sidebar">
-    <div>
-      <h1 class="sidebar-header">Rent A Farm</h1>
-      <p class="text-sm" id="user-email">Loading...</p>
-    </div>
-    <nav class="mt-6">
-      <ul class="space-y-3">
-        <li><a href="dashboard.html" class="sidebar-link">Dashboard</a></li>
-        <li><a href="list-your-land.html" class="sidebar-link">List Your Land</a></li>
-        <!-- Add more options as needed -->
-      </ul>
-    </nav>
-    <button id="logout">Logout</button>
-  </aside>
-  
 
   <!-- Main Content -->
-  <main class="main-content">
-    <input type="text" placeholder="Search by location..." id="searchInput" class="my-6 p-2 border rounded w-full max-w-md" />
-    <h3 class="text-xl font-semibold mb-4">Your Listings</h3>
-    <div id="listingsContainer" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      <!-- Dummy Listing -->
-      <div class="card">
-        <img src="images/farming common image.jpg" alt="Land" />
-        <div class="p-4">
-          <h4 class="font-bold text-lg mb-1">Green Field</h4>
-          <p class="text-sm text-gray-700">Location: Punjab</p>
-          <p class="text-sm text-gray-700">Size: 2 acres</p>
-        </div>
-      </div>
-
-      <div class="card">
-        <img src="images/farming common image.jpg" alt="Land" />
-        <div class="p-4">
-          <h4 class="font-bold text-lg mb-1">Sunny Land</h4>
-          <p class="text-sm text-gray-700">Location: Tamil Nadu</p>
-          <p class="text-sm text-gray-700">Size: 3 acres</p>
-        </div>
-      </div>
-
-      <div class="card">
-        <img src="images/farming common image.jpg" alt="Land" />
-        <div class="p-4">
-          <h4 class="font-bold text-lg mb-1">Crop Haven</h4>
-          <p class="text-sm text-gray-700">Location: Karnataka</p>
-          <p class="text-sm text-gray-700">Size: 5 acres</p>
-        </div>
+<main class="main-content">
+  <!-- Sidebar Toggle Button -->
+  <button id="toggle-sidebar-btn" class="toggle-sidebar-btn">☰ Toggle Sidebar</button>
+  
+  <!-- Search Input -->
+  <input type="text" placeholder="Search by location..." id="searchInput" class="my-6 p-2 border rounded w-full max-w-md" />
+  
+  <h3 class="text-xl font-semibold mb-4">Your Listings</h3>
+  <div id="listingsContainer" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <!-- Dummy Listing -->
+    <div class="card">
+      <img src="images/farming common image.jpg" alt="Land" />
+      <div class="p-4">
+        <h4 class="font-bold text-lg mb-1">Green Field</h4>
+        <p class="text-sm text-gray-700">Location: Punjab</p>
+        <p class="text-sm text-gray-700">Size: 2 acres</p>
       </div>
     </div>
-  </main>
+
+    <div class="card">
+      <img src="images/farming common image.jpg" alt="Land" />
+      <div class="p-4">
+        <h4 class="font-bold text-lg mb-1">Sunny Land</h4>
+        <p class="text-sm text-gray-700">Location: Tamil Nadu</p>
+        <p class="text-sm text-gray-700">Size: 3 acres</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="images/farming common image.jpg" alt="Land" />
+      <div class="p-4">
+        <h4 class="font-bold text-lg mb-1">Crop Haven</h4>
+        <p class="text-sm text-gray-700">Location: Karnataka</p>
+        <p class="text-sm text-gray-700">Size: 5 acres</p>
+      </div>
+    </div>
+  </div>
+</main>
+
 
   <!-- Firebase and App Script -->
   <script type="module" src="dashboard.js"></script>

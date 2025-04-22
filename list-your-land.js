@@ -30,6 +30,15 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
+// Logout functionality
+document.getElementById("logout").addEventListener("click", () => {
+  auth.signOut().then(() => {
+    window.location.href = "login.html"; // Redirect to login page after logout
+  }).catch((error) => {
+    console.error("Logout error:", error);
+  });
+});
+
 document.getElementById("listingForm").addEventListener("submit", async (event) => {
   event.preventDefault();
 

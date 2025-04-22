@@ -96,11 +96,158 @@ ul {
   margin-bottom: 2rem;
 }
 
-.feature-cards {
+.features .feature-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  justify-items: center;
 }
+
+/*features page */
+
+/* Features Full Page */
+/* Features Page Specific */
+
+.features-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Auto-adjust card size */
+  gap: 20px; /* Space between the cards */
+  margin: 0 auto; /* Centering the container */
+  padding: 2rem;
+}
+.features-page {
+  padding: 4rem 2rem;
+  background-color: #f4f4f4;
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  
+}
+
+.features-page .page-title {
+  font-size: 2.2rem;
+  margin-bottom: 3rem;
+  color: #2e7d32;
+}
+
+.interactive-features {
+  align-items: stretch;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+}
+
+/* Feature Card */
+.feature-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.feature-card h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  color: #388e3c;
+}
+
+.feature-card p {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+/* Feature Card Hover */
+.feature-card:hover {
+  transform: translateY(-10px); /* Slight lift on hover */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.main-content.no-sidebar {
+  margin-left: 0;
+}
+
+
+
+/* Interactive Features Enhancements */
+
+
+.flip-card {
+  background: transparent;
+  width: 260px;
+  height: 300px;
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s ease;
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  backface-visibility: hidden;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  padding: 1rem;
+  background-color: #fff;
+  text-align: center;
+}
+
+.flip-card-front img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.flip-card-front h3 {
+  margin-top: 1rem;
+}
+
+.flip-card-back {
+  background-color: #f0f8ff;
+  color: #333;
+  transform: rotateY(180deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.feature-card .card-content {
+  padding: 1rem;
+}
+
+.feature-card .card-content h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.feature-card .card-content p {
+  color: #666;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
 
 .card {
   background-color: white;
@@ -307,11 +454,16 @@ ul {
 .sidebar {
   width: 250px;
   height: 100vh;
-  background-color: #000000; /* Pure black */
+  background-color: #000000;
   color: white;
   padding: 20px;
   display: flex;
   flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  transition: transform 0.3s ease; /* Smooth slide-out */
 }
 
 .sidebar-header {
@@ -320,6 +472,29 @@ ul {
   color: #ffffff;
   margin-bottom: 10px;
 }
+
+/* Toggle Button Styling */
+/* Floating Sidebar Toggle Button */
+#toggleSidebar {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 1000;
+  background-color: #2c3e50;
+  color: white;
+  border: none;
+  padding: 10px 12px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  border-radius: 6px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: background-color 0.3s ease;
+}
+
+#toggleSidebar:hover {
+  background-color: #34495e;
+}
+
 
 #user-email {
   color: #bdc3c7;
@@ -339,9 +514,47 @@ ul {
 }
 
 .sidebar-link:hover {
-  background-color: #222; /* Darker shade on hover */
+  background-color: #222;
   color: #ffffff;
 }
+
+
+/* Collapsed Sidebar */
+.sidebar.collapsed {
+  transform: translateX(-100%); /* This should collapse the sidebar */
+}
+
+.sidebar.collapsed .sidebar-header,
+.sidebar.collapsed #user-email,
+.sidebar.collapsed .sidebar-link span {
+  display: none;
+}
+
+.main-content.collapsed {
+  margin-left: 60px;
+}
+
+/* Toggle Button */
+#toggleSidebar {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 2000; /* Increase z-index */
+  background-color: #2c3e50;
+  color: white;
+  border: none;
+  padding: 10px 12px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  border-radius: 6px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: background-color 0.3s ease;
+}
+
+#toggleSidebar:hover {
+  background-color: #34495e;
+}
+
 
 /*logoutbutton*/
 #logout {
@@ -366,7 +579,9 @@ ul {
   flex-grow: 1;
   padding: 2rem;
   overflow-y: auto;
+  margin-left: 250px;  /* Ensure this matches the sidebar width */
 }
+
 
 #landListingForm {
   background-color: #fff;
@@ -403,6 +618,30 @@ ul {
 #landListingForm button:hover {
   background-color: #16a34a;
 }
+
+#weather-info {
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#weather-info h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+#weather-info p {
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+}
+
+#crop-tips {
+  font-size: 1rem;
+  font-style: italic;
+  color: #333;
+}
+
 
 .card {
   background-color: #fff;
@@ -456,3 +695,5 @@ ul {
     max-width: 100%;
   }
 }
+
+

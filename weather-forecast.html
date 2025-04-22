@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weather Forecast | Rent A Farm</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="dashboard">
+    <!--sidebar-->
+    <aside class="sidebar">
+        <div>
+          <h1 class="sidebar-header">Rent A Farm</h1>
+          <p class="text-sm" id="user-email">Loading...</p>
+          <nav class="mt-6">
+            <ul class="space-y-3">
+              <li><a href="dashboard.html" class="sidebar-link">Dashboard</a></li>
+              <li><a href="list-your-land.html" class="sidebar-link">List Your Land</a></li>
+              <li><a href="weather-forecast.html" class="sidebar-link">Weather Forecast</a></li>
+            </ul>
+          </nav>
+        </div>
+        <button id="logout" class="logout-button">Logout</button>
+      </aside>
+  <!-- Main Content -->
+  <main class="main-content flex justify-center">
+    <section class="w-full max-w-4xl p-8 bg-white shadow-lg rounded-lg mt-10">
+      <h2 class="text-3xl font-bold mb-6 text-center">Weather Forecast</h2>
+
+      <!-- Search bar -->
+      <div class="text-center mb-6">
+        <input type="text" id="location" placeholder="Enter your area" class="border px-4 py-2 rounded-lg w-full md:w-2/3" />
+        <button id="search-btn" class="bg-green-600 text-white px-6 py-2 rounded mt-2 hover:bg-green-700">Search</button>
+      </div>
+
+      <!-- Weather Info Display -->
+      <div id="weather-info" class="hidden">
+        <h3 class="text-xl font-semibold">Weather in <span id="location-name"></span></h3>
+        <p id="temp">Temperature: </p>
+        <p id="humidity">Humidity: </p>
+        <p id="windspeed">Wind Speed: </p>
+
+        <h4 class="mt-4">Tips for Crop Survival:</h4>
+        <div id="crop-tips"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="weather-forecast.js"></script>
+</body>
+</html>
