@@ -56,26 +56,27 @@ export async function getWeather() {
 
   try {
     const apiKey = "7046a2ad586845b98f1152852252204";
-    const proxy  = "http://localhost:8080/";
-    const res    = await fetch(`${proxy}https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${loc}`);
+    const proxy  = "https://api.allorigins.win/get?url=";
+    const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${loc}`;
+    const res    = await fetch(`${proxy}${encodeURIComponent(apiUrl)}`);
 
     if (!res.ok) throw new Error("Invalid location or API issue");
     const json = await res.json();
-    const c   = json.current;
+    const c   = json.contents ? JSON.parse(json.contents) : json;
 
     // Update UI
-    document.getElementById("condition-text").textContent = c.condition.text;
-    document.getElementById("icon").src = `https:${c.condition.icon}`;
-    document.getElementById("icon").alt = c.condition.text;
+    document.getElementById("condition-text").textContent = c.current.condition.text;
+    document.getElementById("icon").src = `https:${c.current.condition.icon}`;
+    document.getElementById("icon").alt = c.current.condition.text;
 
-    document.getElementById("temperature").textContent = `${c.temp_c}°C`;
-    document.getElementById("feels-like").textContent  = `Feels Like: ${c.feelslike_c}°C`;
-    document.getElementById("humidity").textContent    = `${c.humidity}%`;
-    document.getElementById("wind-speed").textContent  = `${c.wind_kph} kph`;
+    document.getElementById("temperature").textContent = `${c.current.temp_c}°C`;
+    document.getElementById("feels-like").textContent  = `Feels Like: ${c.current.feelslike_c}°C`;
+    document.getElementById("humidity").textContent    = `${c.current.humidity}%`;
+    document.getElementById("wind-speed").textContent  = `${c.current.wind_kph} kph`;
 
-    const tip = c.temp_c > 35
+    const tip = c.current.temp_c > 35
       ? "High temperature — ensure crops are well irrigated!"
-      : c.temp_c < 15
+      : c.current.temp_c < 15
         ? "Cold weather — consider frost protection."
         : "Weather looks good for most crops.";
     document.getElementById("tips").textContent = tip;
