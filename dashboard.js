@@ -31,15 +31,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // Check user authentication
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            // Display user email in the sidebar
             if (userEmailDisplay) {
                 userEmailDisplay.textContent = `Logged in as: ${user.email}`;
             }
             if (landFormContainer) {
                 landFormContainer.style.display = "block";
             }
+            displayLandListings();
         } else {
-            // Redirect to login if not authenticated
             window.location.href = "login.html";
         }
     });
@@ -49,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
         logoutButton.addEventListener("click", () => {
             signOut(auth).then(() => {
                 alert("Logged out successfully!");
-                window.location.href = "index.html";  // Redirect to the landing page
+                window.location.href = "index.html";
             }).catch((error) => console.error("Logout Error:", error));
         });
     }
@@ -58,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (listingForm) {
         listingForm.addEventListener("submit", async (e) => {
             e.preventDefault();
-            
+
             const user = auth.currentUser;
             if (!user) {
                 alert("You must be logged in to list land.");
@@ -80,8 +79,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 await uploadBytes(storageRef, imageFile);
                 const imageUrl = await getDownloadURL(storageRef);
 
-                // Adding the land listing to Firestore
-                await addDoc(collection(db, "landListings"), {
+                // Add to the correct collection: "listings"
+                await addDoc(collection(db, "listings"), {
                     userId: user.uid,
                     title: title,
                     location: location,
@@ -90,20 +89,19 @@ document.addEventListener("DOMContentLoaded", () => {
                     timestamp: new Date()
                 });
 
-                // Show success alert
                 if (alertBox) {
                     alertBox.style.display = "block";
-                    alertBox.style.backgroundColor = "#d4edda"; // green
+                    alertBox.style.backgroundColor = "#d4edda";
                     alertBox.textContent = "Land listed successfully!";
                 }
 
-                listingForm.reset(); // Clear form
+                listingForm.reset();
+                displayLandListings();
             } catch (error) {
                 console.error("Error listing land:", error);
-                // Show error alert
                 if (alertBox) {
                     alertBox.style.display = "block";
-                    alertBox.style.backgroundColor = "#f8d7da"; // red
+                    alertBox.style.backgroundColor = "#f8d7da";
                     alertBox.textContent = "Failed to list land. Try again!";
                 }
             }
@@ -113,17 +111,44 @@ document.addEventListener("DOMContentLoaded", () => {
     // Display land listings
     const displayLandListings = async () => {
         const listingsContainer = document.getElementById("listingsContainer");
+        if (!listingsContainer) return;
 
-        // Get all land listings from Firestore
-        const landListingsQuery = collection(db, "landListings");
-        const querySnapshot = await getDocs(landListingsQuery);
-        // Display the listings here...
+        listingsContainer.innerHTML = "";
+
+        try {
+            const landListingsQuery = collection(db, "listings");
+            const querySnapshot = await getDocs(landListingsQuery);
+
+            if (querySnapshot.empty) {
+                listingsContainer.innerHTML = `<p class="text-gray-500 col-span-full">No listings available.</p>`;
+                return;
+            }
+
+            querySnapshot.forEach((doc) => {
+                const listing = doc.data();
+
+                const card = document.createElement("div");
+                card.className = "card bg-white rounded-lg shadow p-4";
+
+                card.innerHTML = `
+                    <img src="${listing.imageUrl}" alt="${listing.title}" class="w-full h-48 object-cover rounded-md mb-2" />
+                    <h3 class="font-bold text-lg mb-1">${listing.title}</h3>
+                    <p class="text-sm text-gray-700">📍 Location: ${listing.location}</p>
+                    <p class="text-sm text-gray-700">📐 Size: ${listing.size}</p>
+                `;
+
+                listingsContainer.appendChild(card);
+            });
+        } catch (error) {
+            console.error("Error loading listings:", error);
+            listingsContainer.innerHTML = `<p class="text-red-500 col-span-full">Failed to load listings.</p>`;
+        }
     };
 
     // Sidebar toggle functionality
     const toggleSidebarBtn = document.getElementById("toggleSidebar");
     const sidebar = document.querySelector(".sidebar");
-    const mainContent = document.querySelector(".main-content"); // Optional if you want to shift content
+    const mainContent = document.querySelector(".main-content");
 
     if (toggleSidebarBtn && sidebar) {
         toggleSidebarBtn.addEventListener("click", () => {
